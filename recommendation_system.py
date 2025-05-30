@@ -12,10 +12,14 @@ tfidf_matrix = vectorizer.fit_transform(data['genres'])
 
 print(tfidf_matrix.shape)
 print(vectorizer.vocabulary_)
-print(len(vectorizer.vocabulary_))
+#print(len(vectorizer.vocabulary_))
 
 cosine_matrix = cosine_similarity(tfidf_matrix)
 cosine_similarity_df = pd.DataFrame(cosine_matrix, index=data['title'], columns=data['title'])
 
-
 results = cosine_similarity_df[user_input].sort_values(ascending=False)[:top_k]
+
+my_series = pd.Series(results, name="title")
+
+title = my_series.index
+print("The most similar type of movie that we can recommend for user: ", title[0])
